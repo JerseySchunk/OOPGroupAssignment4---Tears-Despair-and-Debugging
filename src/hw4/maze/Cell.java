@@ -35,6 +35,20 @@ public class Cell {
 		
 	}
 	
+	public CellComponents getLeft() {
+		return left;
+	}
 	
+	public CellComponents getRight() {
+		return right;
+	}
+	
+	public CellComponents getUp() {
+		return up;
+	}
+	
+	public CellComponents getDown() {
+		return down;
+	}
 	
 }
