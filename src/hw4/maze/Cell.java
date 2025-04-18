@@ -51,4 +51,28 @@ public class Cell {
 		return down;
 	}
 	
+	
+	public void setLeft(CellComponents left) {
+		if(left != null) {
+			this.left = left;
+		}
+	}
+	
+	public void setRight(CellComponents right) {
+		if(right != null) {
+			this.right = right;
+			}
+		}
+	
+	public void setUp(CellComponents up) {
+		if(down != null) {
+			this.up = up;
+		}
+	}
+	
+	public void setDown(CellComponents down) {
+		if(down != null) {
+			this.down = down;
+		}
+	}
 }
