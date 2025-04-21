@@ -26,7 +26,11 @@ public class Player {
 	}
 
 	/**
-	 * Moves the player
+	 * Moves the player using a boolean value to see if something is blocking the movement.
+	 * 
+	 * 4 types of movement options
+	 * UP, DOWN, LEFT, RIGHT
+	 * @return true if the move was possible otherwise false
 	 */
 	public boolean move(Movement movement) {
 		
@@ -34,7 +38,17 @@ public class Player {
 		
 		switch (movement) {
 		
-		
+		case UP:
+			if (currentCell.getUp() == CellComponents.APERTURE) {
+				
+			}
+		case DOWN:
+		/**
+		 * Checks if the left of the Cell has a space
+		 * Then it checks the position of the player to see if it's on the very left
+		 * If it is on the very left wall it can't more left again
+		 * If not it can move left by moving down one on the index
+		 */
 		case LEFT:
 			if (currentCell.getLeft() == CellComponents.APERTURE) {
 				int currentIndex = currentRow.getCells().indexOf(currentCell);
@@ -45,14 +59,19 @@ public class Player {
 			}
 			break;
 			
-			
+		/**
+		* Checks if the right of the Cell has a space
+		* Then it checks the position of the player to see if it's on the very right
+		* If it is on the very right wall it can't more right again
+		* If not it can move right by moving up one on the index
+		*/			
 		case RIGHT:
-			if (currentCell.getRight() == CellComponents.APERTURE) {
-				int currentIndex = currentRow.getCells().indexOf(currentCell);
-				if (currentIndex > 0) {
-					currentCell = currentRow.getCells().get(currentIndex +1);
-					moved = true;
-				}
+			int currentIndex = currentRow.getCells().indexOf(currentCell);
+			if (currentIndex < currentRow.getCells().size()- 1) {
+				if (currentCell.getRight() == CellComponents.APERTURE) {
+					currentCell = currentRow.getCells().get(currentIndex + 1);
+					return true;
+					}
 			}
 			break;
 			
