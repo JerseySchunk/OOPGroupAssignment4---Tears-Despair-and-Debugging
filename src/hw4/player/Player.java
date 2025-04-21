@@ -30,11 +30,13 @@ public class Player {
 	 * 
 	 * 4 types of movement options
 	 * UP, DOWN, LEFT, RIGHT
+	 * example use Movement.LEFT
 	 * @return true if the move was possible otherwise false
 	 */
 	public boolean move(Movement movement) {
 		
 		boolean moved = false;
+		int currentIndex = currentRow.getCells().indexOf(currentCell);
 		
 		switch (movement) {
 		
@@ -51,8 +53,7 @@ public class Player {
 		 */
 		case LEFT:
 			if (currentCell.getLeft() == CellComponents.APERTURE) {
-				int currentIndex = currentRow.getCells().indexOf(currentCell);
-				if (currentIndex > 0) {
+				if(currentIndex > 0) {
 					currentCell = currentRow.getCells().get(currentIndex -1);
 					moved = true;
 				}
@@ -66,12 +67,10 @@ public class Player {
 		* If not it can move right by moving up one on the index
 		*/			
 		case RIGHT:
-			int currentIndex = currentRow.getCells().indexOf(currentCell);
-			if (currentIndex < currentRow.getCells().size()- 1) {
-				if (currentCell.getRight() == CellComponents.APERTURE) {
+			if (currentCell.getRight() == CellComponents.APERTURE) {
+				if(currentIndex < currentRow.getCells().size() - 1) {
 					currentCell = currentRow.getCells().get(currentIndex + 1);
-					return true;
-					}
+				}
 			}
 			break;
 			
@@ -83,5 +82,4 @@ public class Player {
 	public String toString() {
 		return "Player [currentCell=" + currentCell + ", currentRow=" + currentRow + "]";
 	}
-	
 }
