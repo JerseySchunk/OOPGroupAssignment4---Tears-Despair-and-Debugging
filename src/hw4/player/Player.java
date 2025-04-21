@@ -27,7 +27,7 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return "Player [currentRow=" + currentRow + ", currentCell=" + currentCell + "]";
+		return "Player [currentCell=" + currentCell + ", currentRow=" + currentRow + "]";
 	}
 	
 }
