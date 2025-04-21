@@ -11,6 +11,7 @@ public class Player {
 	private Row currentRow;
 	private Cell currentCell;
 	
+	//
 	public Player(Row currentRow, Cell currentCell) {
 		this.currentRow = currentRow;
 		this.currentCell = currentCell;
@@ -24,4 +25,9 @@ public class Player {
 		return currentCell;
 	}
 
+	@Override
+	public String toString() {
+		return "Player [currentRow=" + currentRow + ", currentCell=" + currentCell + "]";
+	}
+	
 }
