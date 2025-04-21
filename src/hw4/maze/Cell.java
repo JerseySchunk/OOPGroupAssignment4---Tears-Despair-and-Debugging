@@ -19,7 +19,7 @@ public class Cell {
 	 * @param right the component on the right side of the cell
 	 */
 	
-	public Cell(CellComponents up, CellComponents down, CellComponents left, CellComponents right){
+	public Cell(CellComponents left, CellComponents right, CellComponents up, CellComponents down){
 		
 		if(left != null) {
 			this.left = left;
@@ -93,9 +93,7 @@ public class Cell {
 	 * @param left the new left side
 	 */
 	public void setLeft(CellComponents left) {
-		if(left != null) {
-			this.left = left;
-		}
+		this.left = (left != null) ? left : CellComponents.WALL;
 	}
 	
 	/**
@@ -105,9 +103,7 @@ public class Cell {
 	 * @param right the new right side
 	 */
 	public void setRight(CellComponents right) {
-		if(right != null) {
-			this.right = right;
-			}
+		this.right = (right != null) ? right : CellComponents.WALL;
 		}
 	
 	/**
@@ -117,9 +113,7 @@ public class Cell {
 	 * @param up the new top side
 	 */
 	public void setUp(CellComponents up) {
-		if(down != null) {
-			this.up = up;
-		}
+		this.up = (up != null) ? up : CellComponents.WALL;
 	}
 	
 	/**
@@ -129,9 +123,7 @@ public class Cell {
 	 * @param down the new bottom side
 	 */
 	public void setDown(CellComponents down) {
-		if(down != null) {
-			this.down = down;
-		}
+		this.down = (down != null) ? down : CellComponents.WALL;
 	}
 	
 	/**
@@ -141,6 +133,6 @@ public class Cell {
 	 */
 	@Override
 	public String toString() {
-		return "Cell [left=" + left + ", right=" + right + ", up" + up + ", down=" + down + "]";
+		return "Cell [left=" + left + ", right=" + right + ", up=" + up + ", down=" + down + "]";
 	}
 }
