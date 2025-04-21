@@ -133,6 +133,6 @@ public class Cell {
 	 */
 	@Override
 	public String toString() {
-		return "Cell [left=" + left + ", right=" + right + ", up=" + up + ", down=" + down + "]";
+		return "Cell [left="  + left + ", right=" + right + ", up=" + up + ", down=" + down + "]";
 	}
 }

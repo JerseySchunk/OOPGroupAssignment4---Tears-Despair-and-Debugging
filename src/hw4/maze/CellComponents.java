@@ -15,4 +15,4 @@ public enum CellComponents {
 	WALL,
 	APERTURE,
 	EXIT;
-}
+} 
