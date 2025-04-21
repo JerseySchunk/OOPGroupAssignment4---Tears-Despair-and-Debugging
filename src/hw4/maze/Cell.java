@@ -11,6 +11,7 @@ public class Cell {
 	 * Constructs a Cell with the given components for each direction
 	 * If a direction is null, it defaults to CellComponents.Wall
 	 * 
+	 * @author Jersey Schunk
 	 * 
 	 * @param up the component on the top side of the cell
 	 * @param down the component on the bottom side of the cell

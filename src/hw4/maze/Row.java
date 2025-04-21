@@ -5,6 +5,8 @@ import java.util.ArrayList;
 /**
  * A row in a maze, composed of a list of {@link Cell} objects.
  * A Row object provides access to and modification of its list of cells.
+ * 
+ * @author Jersey Schunk
  */
 
 public class Row {
