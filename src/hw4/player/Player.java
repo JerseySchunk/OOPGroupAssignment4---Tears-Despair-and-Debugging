@@ -25,6 +25,41 @@ public class Player {
 		return currentCell;
 	}
 
+	/**
+	 * Moves the player
+	 */
+	public boolean move(Movement movement) {
+		
+		boolean moved = false;
+		
+		switch (movement) {
+		
+		
+		case LEFT:
+			if (currentCell.getLeft() == CellComponents.APERTURE) {
+				int currentIndex = currentRow.getCells().indexOf(currentCell);
+				if (currentIndex > 0) {
+					currentCell = currentRow.getCells().get(currentIndex -1);
+					moved = true;
+				}
+			}
+			break;
+			
+			
+		case RIGHT:
+			if (currentCell.getRight() == CellComponents.APERTURE) {
+				int currentIndex = currentRow.getCells().indexOf(currentCell);
+				if (currentIndex > 0) {
+					currentCell = currentRow.getCells().get(currentIndex +1);
+					moved = true;
+				}
+			}
+			break;
+			
+		}
+		return moved;
+	}
+	
 	@Override
 	public String toString() {
 		return "Player [currentCell=" + currentCell + ", currentRow=" + currentRow + "]";
