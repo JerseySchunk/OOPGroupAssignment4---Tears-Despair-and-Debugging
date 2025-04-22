@@ -43,7 +43,7 @@ public class Player {
 		case UP:
 			if (currentRow.getCells().indexOf(currentCell) > 0) {
 				Cell aboveCell = currentRow.getCells().get(currentIndex - 1);
-				if (aboveCell.getUp() == CellComponents.APERTURE) {
+				if (aboveCell.getUp() != CellComponents.WALL) {
 					currentCell = aboveCell;
 					moved = true;
 				}
@@ -54,7 +54,7 @@ public class Player {
 		case DOWN:
 			if(currentRow.getCells().indexOf(currentCell) < currentRow.getCells().size() - 1) {
 				Cell belowCell = currentRow.getCells().get(currentIndex + 1);
-				if (belowCell.getDown() == CellComponents.APERTURE) {
+				if (belowCell.getDown() != CellComponents.WALL) {
 					currentCell = belowCell;
 					moved = true;
 				}				
@@ -69,7 +69,7 @@ public class Player {
 		 * If not it can move left by moving down one on the index
 		 */
 		case LEFT:
-			if (currentCell.getLeft() == CellComponents.APERTURE) {
+			if (currentCell.getLeft() != CellComponents.WALL) {
 				if(currentIndex > 0) {
 					currentCell = currentRow.getCells().get(currentIndex -1);
 					moved = true;
@@ -84,7 +84,7 @@ public class Player {
 		* If not it can move right by moving up one on the index
 		*/			
 		case RIGHT:
-			if (currentCell.getRight() == CellComponents.APERTURE) {
+			if (currentCell.getRight() == CellComponents.WALL) {
 				if(currentIndex < currentRow.getCells().size() - 1) {
 					currentCell = currentRow.getCells().get(currentIndex + 1);
 				}
@@ -92,6 +92,11 @@ public class Player {
 			break;
 			
 		}
+		//Just to give a invalid move message to the player
+		if (moved = false) {
+			System.out.println("Invalid Move");
+		}
+		
 		return moved;
 	}
 	
