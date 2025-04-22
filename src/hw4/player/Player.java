@@ -10,6 +10,7 @@ public class Player {
 	//Stores the position of the player in the grid
 	private Row currentRow;
 	private Cell currentCell;
+
 	
 	//
 	public Player(Row currentRow, Cell currentCell) {
@@ -41,10 +42,11 @@ public class Player {
 		switch (movement) {
 		
 		case UP:
-			if (currentCell.getUp() == CellComponents.APERTURE) {
-				
-			}
-		case DOWN:
+
+			
+		case DOWN:		
+			
+			
 		/**
 		 * Checks if the left of the Cell has a space
 		 * Then it checks the position of the player to see if it's on the very left
