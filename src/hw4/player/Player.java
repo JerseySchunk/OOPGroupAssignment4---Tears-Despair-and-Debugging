@@ -54,7 +54,7 @@ public class Player {
 		case DOWN:
 			if(currentRow.getCells().indexOf(currentCell) < currentRow.getCells().size() - 1) {
 				Cell belowCell = currentRow.getCells().get(currentIndex + 1);
-				if (belowCell.getUp() == CellComponents.APERTURE) {
+				if (belowCell.getDown() == CellComponents.APERTURE) {
 					currentCell = belowCell;
 					moved = true;
 				}				
