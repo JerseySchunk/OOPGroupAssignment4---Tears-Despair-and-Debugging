@@ -39,7 +39,11 @@ public class Player {
 		int currentIndex = currentRow.getCells().indexOf(currentCell);
 		
 		switch (movement) {
-		
+		/**
+		 * checks the position of the player to see if it's on the very top
+		 * If it is on the very top it can't move more up
+		 * If not it can move up by moving up one on the index which is - 1
+		 */			
 		case UP:
 			if (currentRow.getCells().indexOf(currentCell) > 0) {
 				Cell aboveCell = currentRow.getCells().get(currentIndex - 1);
@@ -50,7 +54,11 @@ public class Player {
 			}
 			break;
 
-			
+			/**
+			 * checks the position of the player to see if it's on the very bottom
+			 * If it is on the very bottom
+			 * If not it can move down by moving down one on the index which is + 1
+			 */		
 		case DOWN:
 			if(currentRow.getCells().indexOf(currentCell) < currentRow.getCells().size() - 1) {
 				Cell belowCell = currentRow.getCells().get(currentIndex + 1);
@@ -84,7 +92,7 @@ public class Player {
 		* If not it can move right by moving up one on the index
 		*/			
 		case RIGHT:
-			if (currentCell.getRight() == CellComponents.WALL) {
+			if (currentCell.getRight() != CellComponents.WALL) {
 				if(currentIndex < currentRow.getCells().size() - 1) {
 					currentCell = currentRow.getCells().get(currentIndex + 1);
 				}
@@ -93,7 +101,7 @@ public class Player {
 			
 		}
 		//Just to give a invalid move message to the player
-		if (moved = false) {
+		if (moved == false) {
 			System.out.println("Invalid Move");
 		}
 		
