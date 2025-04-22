@@ -1,7 +1,6 @@
 package hw4.player;
 
 import hw4.maze.Cell;
-import hw4.maze.Grid;
 import hw4.maze.CellComponents;
 import hw4.maze.Row;
 
@@ -42,6 +41,14 @@ public class Player {
 		switch (movement) {
 		
 		case UP:
+			if (currentRow.getCells().indexOf(currentCell) > 0) {
+				Cell aboveCell = currentRow.getCells().get(currentIndex - 1);
+				if (aboveCell.getUp() == CellComponents.APERTURE) {
+					currentCell = aboveCell;
+					moved = true;
+				}
+			}
+			break;
 
 			
 		case DOWN:		
