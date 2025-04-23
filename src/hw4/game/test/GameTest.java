@@ -38,12 +38,9 @@ class GameTest {
 	}
 	
 	public boolean play(Movement movement, Player player) {
-	    if (movement == null || player == null) {
-	        return false;
-	    }
-
-	    return player.move(movement, grid);
+	    return game.play(movement, player);
 	}
+
 	@BeforeEach
 	void setUp() throws Exception {
 	}

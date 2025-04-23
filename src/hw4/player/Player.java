@@ -7,13 +7,25 @@ import hw4.maze.Row;
 
 public class Player {
 
-	// Stores the position of the player in the grid
 	private Row currentRow;
 	private Cell currentCell;
+	private Grid grid; // Added to access grid within Player
 
-	public Player(Row currentRow, Cell currentCell) {
+	public Player(Row currentRow, Cell currentCell, Grid grid) {
 		this.currentRow = currentRow;
 		this.currentCell = currentCell;
+		this.grid = grid;
+	}
+	
+	public void setCurrentRow(Row currentRow) {
+		this.currentRow = currentRow;
+	}
+
+	public void setCurrentCell(Cell currentCell) {
+		this.currentCell = currentCell;
+	}
+	public Player(Row row, Cell cell) {
+		
 	}
 
 	public Row getCurrentRow() {
@@ -24,16 +36,11 @@ public class Player {
 		return currentCell;
 	}
 
-	/**
-	 * Moves the player using a boolean value to see if something is blocking the movement.
-	 *
-	 * 4 types of movement options
-	 * UP, DOWN, LEFT, RIGHT
-	 * example use Movement.LEFT
-	 * @return true if the move was possible otherwise false
-	 */
-	public boolean move(Movement direction, Grid grid) {
+	public Grid getGrid() {
+		return grid;
+	}
 
+	public boolean move(Movement direction) {
 		boolean moved = false;
 		int currentIndex = currentRow.getCells().indexOf(currentCell);
 		int rowIndex = grid.getRows().indexOf(currentRow);
@@ -90,4 +97,3 @@ public class Player {
 		return "Player [currentCell=" + currentCell + ", currentRow=" + currentRow + "]";
 	}
 }
-
