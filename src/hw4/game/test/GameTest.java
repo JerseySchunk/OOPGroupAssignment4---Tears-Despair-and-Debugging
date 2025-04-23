@@ -207,9 +207,11 @@ class GameTest {
 		rows.add(row1);
 		rows.add(row2);
 		grid = new Grid(rows);
-		player = new Player(grid.getRows().get(2), grid.getRows().get(2).getCells().get(2));
-	}
-
+		player = new Player(
+			    grid.getRows().get(2),                      // row
+			    grid.getRows().get(2).getCells().get(2),    // cell
+			    grid                                        // grid
+			);}
 	private static boolean isThereAnExitOnLeftSideGrid(Grid grid) {
 		int gridSize = grid.getRows().size();
 		for (int j = 0; j < gridSize; j++) {

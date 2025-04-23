@@ -5,41 +5,83 @@ import hw4.maze.Grid;
 import hw4.maze.CellComponents;
 import hw4.maze.Row;
 
+/**
+ * Represents a player navigating a grid-based maze.
+ * Tracks the player's current position and allows movement in cardinal directions.
+ */
 public class Player {
 
 	private Row currentRow;
 	private Cell currentCell;
-	private Grid grid; // Added to access grid within Player
+	private Grid grid;
 
+	/**
+	 * Constructs a player at a specific location with access to the maze grid.
+	 * @param currentRow Row containing the player's cell
+	 * @param currentCell Cell where the player is located
+	 * @param grid Grid representing the maze
+	 */
 	public Player(Row currentRow, Cell currentCell, Grid grid) {
 		this.currentRow = currentRow;
 		this.currentCell = currentCell;
 		this.grid = grid;
 	}
-	
+
+	/**
+	 * Updates the player's current row.
+	 * @param currentRow New row
+	 */
 	public void setCurrentRow(Row currentRow) {
 		this.currentRow = currentRow;
 	}
 
+	/**
+	 * Updates the player's current cell.
+	 * @param currentCell New cell
+	 */
 	public void setCurrentCell(Cell currentCell) {
 		this.currentCell = currentCell;
 	}
-	public Player(Row row, Cell cell) {
-		
+
+	/**
+	 * Updates the grid reference.
+	 * Use this only if the player was created without a grid.
+	 * @param grid Maze grid
+	 */
+	public void setGrid(Grid grid) {
+		this.grid = grid;
 	}
 
+	/**
+	 * Returns the current row.
+	 * @return Current row
+	 */
 	public Row getCurrentRow() {
 		return currentRow;
 	}
 
+	/**
+	 * Returns the current cell.
+	 * @return Current cell
+	 */
 	public Cell getCurrentCell() {
 		return currentCell;
 	}
 
+	/**
+	 * Returns the maze grid.
+	 * @return Grid
+	 */
 	public Grid getGrid() {
 		return grid;
 	}
 
+	/**
+	 * Attempts to move the player in a given direction.
+	 * Movement only succeeds if no wall is blocking the path.
+	 * @param direction Direction to move
+	 * @return true if movement succeeded; false otherwise
+	 */
 	public boolean move(Movement direction) {
 		boolean moved = false;
 		int currentIndex = currentRow.getCells().indexOf(currentCell);

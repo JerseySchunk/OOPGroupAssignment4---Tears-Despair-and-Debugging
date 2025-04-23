@@ -79,8 +79,8 @@ class PlayerTest {
 		new ArrayList<>();
 		grid = new Grid(rows);
 		player = new Player(grid.getRows().get(2), 
-							grid.getRows().get(2).getCells().get(2));
-	}
+                grid.getRows().get(2).getCells().get(2),
+                grid);}
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {

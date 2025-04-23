@@ -13,10 +13,12 @@ public class GameSimulation {
 
         
         game.setGrid(grid);
-
-        // Create a player
-        Player player = new Player(grid.getRows().get(4), grid.getRows().get(4).getCells().get(4));
-
+//make player
+        Player player = new Player(
+        	    grid.getRows().get(4),                      // row
+        	    grid.getRows().get(4).getCells().get(4),    // cell
+        	    grid                                       // grid
+        	);
         // player moves
         System.out.println("Initial Grid:");
         System.out.println(game);
