@@ -30,8 +30,13 @@ public class Grid {
 	public void setRows(ArrayList<Row> rows) {
 		this.rows = rows;
 	}
-	
-	@Override public String toString() {
-		return "Grid [rows=" + rows + "]";
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		for (Row row : rows) {
+			sb.append(row.toString()).append("\n");
+		}
+		return sb.toString();
 	}
 }

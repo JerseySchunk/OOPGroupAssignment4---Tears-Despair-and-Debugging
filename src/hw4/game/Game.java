@@ -65,7 +65,11 @@ public class Game {
 
 		return false;
 	}
-
+	
+	@Override
+	public String toString() {
+	    return grid.toString(); 
+	}
 	public Grid getGrid() {
 		return grid;
 	}
