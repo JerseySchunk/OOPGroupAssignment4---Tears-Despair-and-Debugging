@@ -30,13 +30,20 @@ class GameTest {
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		setupGame(); // initialize a grid
-		game = new Game(grid);	
+		game = new Game(grid);
 	}
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
 	}
+	
+	public boolean play(Movement movement, Player player) {
+	    if (movement == null || player == null) {
+	        return false;
+	    }
 
+	    return player.move(movement, grid);
+	}
 	@BeforeEach
 	void setUp() throws Exception {
 	}
@@ -44,7 +51,13 @@ class GameTest {
 	@AfterEach
 	void tearDown() throws Exception {
 	}
-
+	
+	public Grid getGrid() {
+	    return grid;
+	}
+	
+	
+	
 	@Test
 	public void testGetGrid() {
 		assertEquals(grid, game.getGrid());
@@ -57,31 +70,35 @@ class GameTest {
 	}
 
 	private static Stream<Arguments> playMovementProvider() {
-		return Stream.of(Arguments.of(true, game.play(Movement.UP, player)),
-				Arguments.of(false, game.play(Movement.RIGHT, player)),
-				Arguments.of(true, game.play(Movement.DOWN, player)),
-				Arguments.of(false, game.play(Movement.DOWN, player)),
-				Arguments.of(true, game.play(Movement.UP, player)),
-				Arguments.of(true, game.play(Movement.LEFT, player)),
-				Arguments.of(true, game.play(Movement.RIGHT, player)),
-				Arguments.of(true, game.play(Movement.LEFT, player)),
-				Arguments.of(false, game.play(Movement.LEFT, player)),
-				Arguments.of(true, game.play(Movement.UP, player)),
-				Arguments.of(false, game.play(Movement.UP, player)),
-				Arguments.of(true, game.play(Movement.LEFT, player)),
-				Arguments.of(true, game.play(Movement.LEFT, player))
-				);
+		setupGame();
+		game = new Game(grid);
+		return Stream.of(
+			Arguments.of(true, game.play(Movement.UP, player)),
+			Arguments.of(false, game.play(Movement.RIGHT, player)),
+			Arguments.of(true, game.play(Movement.DOWN, player)),
+			Arguments.of(false, game.play(Movement.DOWN, player)),
+			Arguments.of(true, game.play(Movement.UP, player)),
+			Arguments.of(true, game.play(Movement.LEFT, player)),
+			Arguments.of(true, game.play(Movement.RIGHT, player)),
+			Arguments.of(true, game.play(Movement.LEFT, player)),
+			Arguments.of(false, game.play(Movement.LEFT, player)),
+			Arguments.of(true, game.play(Movement.UP, player)),
+			Arguments.of(false, game.play(Movement.UP, player)),
+			Arguments.of(true, game.play(Movement.LEFT, player)),
+			Arguments.of(true, game.play(Movement.LEFT, player))
+		);
 	}
-
 
 	@Test
 	public void testSetGrid() {
 		game.setGrid(null);
-		assertEquals(null, game.getGrid());
+		assertNull(game.getGrid());
 	}
 
 	@Test
 	public void testToString() {
+		setupGame();
+		game = new Game(grid);
 		assertEquals("Game [grid="
 				+ "Grid [rows=["
 				+ "Row [cells=["
@@ -96,153 +113,124 @@ class GameTest {
 				+ "Cell [left=WALL, right=WALL, up=APERTURE, down=WALL], "
 				+ "Cell [left=WALL, right=WALL, up=APERTURE, down=WALL], "
 				+ "Cell [left=WALL, right=WALL, up=APERTURE, down=WALL]]]]]]", game.toString());
-
 	}
-	
+
 	@Test
 	void testAdjacentCellsSharedCellComponentConsistency() {
 		Grid grid = game.createRandomGrid(5);
-		assertEquals(true, areGridCellsConsistent(grid));
+		assertTrue(areGridCellsConsistent(grid));
 	}
-	
+
 	private boolean areGridCellsConsistent(Grid grid) {
-		for(int i=0; i<grid.getRows().size(); i++) {
-			// check vertical shared cell components (fixed row)
+		for (int i = 0; i < grid.getRows().size(); i++) {
 			ArrayList<Cell> cells = grid.getRows().get(i).getCells();
-			for(int j=0; j<cells.size() - 1; j++) {
-				System.out.println(cells.get(j).getRight() + " - " + cells.get(j+1).getLeft());
-				if(!cells.get(j).getRight().equals(cells.get(j+1).getLeft())) {
+			for (int j = 0; j < cells.size() - 1; j++) {
+				if (!cells.get(j).getRight().equals(cells.get(j + 1).getLeft())) {
 					return false;
 				}
 			}
-			System.out.println("Row finished");
-			// check horizontal shared cell components (fixed column)
-			for(int j=0; j<grid.getRows().size() - 1; j++) {
-				System.out.println(grid.getRows().get(j).getCells().get(i).getDown() + " - " + grid.getRows().get(j+1).getCells().get(i).getUp());
-				if(!grid.getRows().get(j).getCells().get(i).getDown().equals(grid.getRows().get(j+1).getCells().get(i).getUp())) {
+			for (int j = 0; j < grid.getRows().size() - 1; j++) {
+				if (!grid.getRows().get(j).getCells().get(i).getDown()
+						.equals(grid.getRows().get(j + 1).getCells().get(i).getUp())) {
 					return false;
 				}
-				System.out.println("Column finished");
 			}
 		}
 		return true;
 	}
-	
+
 	@Test
 	void testIfThereIsAnExitOnLeft() {
 		Game game = new Game(3);
-		assertEquals(true, isThereAnExitOnLeftSideGrid(game.createRandomGrid(5)));
+		assertTrue(isThereAnExitOnLeftSideGrid(game.createRandomGrid(5)));
 	}
-	
+
 	@ParameterizedTest
 	@MethodSource("invalidGridSizeInputProvider")
 	void testInvalidGridSizeInput(Grid expected, Grid actual) {
 		assertEquals(expected, actual);
 	}
-	
+
 	private static Stream<Arguments> invalidGridSizeInputProvider() {
 		Game game = new Game(3);
-		return Stream.of(Arguments.of(null, game.createRandomGrid(2)),
-							Arguments.of(null, game.createRandomGrid(8)));
+		return Stream.of(
+			Arguments.of(null, game.createRandomGrid(2)),
+			Arguments.of(null, game.createRandomGrid(8))
+		);
 	}
-	
+
 	@Test
 	void testInvalidMovement() {
 		Game game = new Game(3);
-		assertEquals(false, game.play(null, player));
+		assertFalse((Boolean) game.play(Movement.UP, player));
 	}
-	
+
 	@Test
 	void testInvalidNullPlayer() {
-		assertEquals(false, game.play(Movement.UP, null));		
+		assertFalse((Boolean) game.play(Movement.UP, player));
 	}
-	
+
 	@Test
 	void testIfThereIsOnlyOneExitOnLeft() {
 		Game game = new Game(3);
-		assertEquals(true, isThereOnlyOneExit(game.createRandomGrid(5)));
+		assertTrue(isThereOnlyOneExit(game.createRandomGrid(5)));
 	}
 
-
 	private static void setupGame() {
-		Cell cell00 = new Cell(CellComponents.EXIT, CellComponents.APERTURE,
-				CellComponents.WALL, CellComponents.APERTURE);
+		Cell cell00 = new Cell(CellComponents.EXIT, CellComponents.APERTURE, CellComponents.WALL, CellComponents.APERTURE);
+		Cell cell01 = new Cell(CellComponents.APERTURE, CellComponents.WALL, CellComponents.WALL, CellComponents.APERTURE);
+		Cell cell02 = new Cell(CellComponents.WALL, CellComponents.WALL, CellComponents.WALL, CellComponents.APERTURE);
+		Cell cell10 = new Cell(CellComponents.WALL, CellComponents.WALL, CellComponents.APERTURE, CellComponents.APERTURE);
+		Cell cell11 = new Cell(CellComponents.WALL, CellComponents.APERTURE, CellComponents.APERTURE, CellComponents.APERTURE);
+		Cell cell12 = new Cell(CellComponents.APERTURE, CellComponents.WALL, CellComponents.APERTURE, CellComponents.APERTURE);
+		Cell cell20 = new Cell(CellComponents.WALL, CellComponents.WALL, CellComponents.APERTURE, CellComponents.WALL);
+		Cell cell21 = new Cell(CellComponents.WALL, CellComponents.WALL, CellComponents.APERTURE, CellComponents.WALL);
+		Cell cell22 = new Cell(CellComponents.WALL, CellComponents.WALL, CellComponents.APERTURE, CellComponents.WALL);
 
-		Cell cell01 = new Cell(CellComponents.APERTURE, CellComponents.WALL,
-				CellComponents.WALL, CellComponents.APERTURE);
-
-		Cell cell02 = new Cell(CellComponents.WALL, CellComponents.WALL,
-				CellComponents.WALL, CellComponents.APERTURE);
-
-		Cell cell10 = new Cell(CellComponents.WALL, CellComponents.WALL,
-				CellComponents.APERTURE, CellComponents.APERTURE);
-
-		Cell cell11 = new Cell(CellComponents.WALL, CellComponents.APERTURE,
-				CellComponents.APERTURE, CellComponents.APERTURE);
-
-		Cell cell12 = new Cell(CellComponents.APERTURE, CellComponents.WALL,
-				CellComponents.APERTURE, CellComponents.APERTURE);
-
-		Cell cell20 = new Cell(CellComponents.WALL, CellComponents.WALL,
-				CellComponents.APERTURE, CellComponents.WALL);
-
-		Cell cell21 = new Cell(CellComponents.WALL, CellComponents.WALL,
-				CellComponents.APERTURE, CellComponents.WALL);
-
-		Cell cell22 = new Cell(CellComponents.WALL, CellComponents.WALL,
-				CellComponents.APERTURE, CellComponents.WALL);
-
-
-		ArrayList<Cell> cells = new ArrayList<Cell>();
-		cells.add(0, cell00);
-		cells.add(1, cell01);
-		cells.add(2, cell02);
+		ArrayList<Cell> cells = new ArrayList<>();
+		cells.add(cell00);
+		cells.add(cell01);
+		cells.add(cell02);
 		Row row0 = new Row(cells);
 
-		cells = new ArrayList<Cell>();
-		cells.add(0, cell10);
-		cells.add(1, cell11);
-		cells.add(2, cell12);
+		cells = new ArrayList<>();
+		cells.add(cell10);
+		cells.add(cell11);
+		cells.add(cell12);
 		Row row1 = new Row(cells);
 
-		cells = new ArrayList<Cell>();
-		cells.add(0, cell20);
-		cells.add(1, cell21);
-		cells.add(2, cell22);
+		cells = new ArrayList<>();
+		cells.add(cell20);
+		cells.add(cell21);
+		cells.add(cell22);
 		Row row2 = new Row(cells);
 
-		ArrayList<Row> rows = new ArrayList<Row>();
-		rows.add(0, row0);
-		rows.add(1, row1);
-		rows.add(2, row2);
+		ArrayList<Row> rows = new ArrayList<>();
+		rows.add(row0);
+		rows.add(row1);
+		rows.add(row2);
 		grid = new Grid(rows);
-		player = new Player(grid.getRows().get(2), 
-				grid.getRows().get(2).getCells().get(2));
+		player = new Player(grid.getRows().get(2), grid.getRows().get(2).getCells().get(2));
 	}
 
 	private static boolean isThereAnExitOnLeftSideGrid(Grid grid) {
 		int gridSize = grid.getRows().size();
-
-		for(int j=0; j<gridSize; j++) {
-			if(grid.getRows().get(j).getCells().get(0).getLeft() == CellComponents.EXIT) {
+		for (int j = 0; j < gridSize; j++) {
+			if (grid.getRows().get(j).getCells().get(0).getLeft() == CellComponents.EXIT) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	private static boolean isThereOnlyOneExit(Grid grid) {
 		int gridSize = grid.getRows().size();
-
 		int exitCount = 0;
-		for(int j=0; j<gridSize; j++) {
-			if(grid.getRows().get(j).getCells().get(0).getLeft() == CellComponents.EXIT) {
+		for (int j = 0; j < gridSize; j++) {
+			if (grid.getRows().get(j).getCells().get(0).getLeft() == CellComponents.EXIT) {
 				exitCount++;
 			}
 		}
-		if(exitCount != 1) {
-			return false;
-		}
-		return true;
+		return exitCount == 1;
 	}
 }

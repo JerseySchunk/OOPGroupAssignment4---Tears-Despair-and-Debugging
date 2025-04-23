@@ -16,7 +16,18 @@ public class Game {
         this.isGameOver = false;
     }
 
-    public void movePlayer(String direction) {
+    public Game(Grid grid2) {
+		this.grid = null;
+		this.player = null;
+    }
+
+	public Game(int i) {
+		this.grid = null;
+		this.player = null;
+		
+	}
+
+	public void movePlayer(String direction) {
         if (isGameOver) return;
 
         try {
@@ -67,4 +78,21 @@ public class Game {
     private int getPlayerCol() {
         return player.getCurrentRow().getCells().indexOf(player.getCurrentCell());
     }
+
+	public Object play(Movement down, Player player2) {
+		return null;
+	}
+
+	public Object getGrid() {
+		return null;
+	}
+
+	public void setGrid(Object object) {
+		
+	}
+
+	public Grid createRandomGrid(int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
