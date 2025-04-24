@@ -1,14 +1,13 @@
 package hw4.maze;
 
-import java.util.ArrayList;
 import hw4.player.Player;
-
+import java.util.ArrayList;
 /**
  * Represents the entire maze structure used in TDD.
  * A grid is made up of multiple {@link Row} objects, and each row
  * contains several {@link Cell} objects. Together, they form a 2D maze that
  * the player can move through.
- *
+ *  
  * Provides methods to access and update the grid's layout.
  * It also includes readable string formats of the grid.
  *
@@ -39,9 +38,9 @@ public class Grid {
     }
 
     /**
-     * Prints a more visual and compact representation of the grid
-     * with the player's position marked as [P].
-     * Cell contents are not printed in full detail, but as a visual grid.
+     * Prints visual and compact representation of the grid
+     *  player's position as [P].
+     * Cell printed  as a visual grid.
      *
      * @param player the player whose position to highlight
      */
@@ -49,29 +48,14 @@ public class Grid {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < rows.size(); i++) {
             Row row = rows.get(i);
-            sb.append("Row ").append(i).append(" | ");
             for (int j = 0; j < row.getCells().size(); j++) {
-                if (player.getRow() == row && player.getCol() == j) {  // Corrected this line
-                    sb.append("[P]");
+                if (player.getRow() == row && player.getCol() == j) { 
+                    sb.append("[P]");  // Display player position
                 } else {
-                    sb.append("[ ]");
+                    sb.append(row.getCells().get(j).toVisualString());  // Print the visual representation of the cell
                 }
             }
             sb.append("\n");
-        }
-        System.out.println(sb.toString());
-    }
-
-    /**
-     * Legacy method to print the grid using row-specific string conversion.
-     * Useful if rows implement special formatting with the player's position.
-     *
-     * @param player the player whose position to highlight
-     */
-    public void printGridWithPlayer(Player player) {
-        StringBuilder sb = new StringBuilder();
-        for (Row row : rows) {
-            sb.append(row.toString1(player)).append("\n");
         }
         System.out.println(sb.toString());
     }

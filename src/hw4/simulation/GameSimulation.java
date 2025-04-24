@@ -9,8 +9,8 @@ public class GameSimulation {
     public static void main(String[] args) {
         // Initialize 
         Game game = new Game(5);  // Creates a 5x5 grid
-        Grid grid = game.createRandomGrid(5);
-        
+        Grid grid = game.createRandomGrid(5);  // Create random grid
+
         game.setGrid(grid);
 
         // Create player at bottom-right cell
@@ -22,29 +22,29 @@ public class GameSimulation {
 
         // Print initial grid with player
         System.out.println("Initial Grid:");
-        grid.printGridWithPlayer(player);
+        grid.printVisualGridWithPlayer(player);  // Print grid with player
 
         // Simulate moves
         boolean moved;
 
         moved = game.play(Movement.UP, player);
         System.out.println("Move UP: " + moved);
-        grid.printGridWithPlayer(player);
+        grid.printVisualGridWithPlayer(player);  // Print grid after move
 
         moved = game.play(Movement.LEFT, player);
         System.out.println("Move LEFT: " + moved);
-        grid.printGridWithPlayer(player);
+        grid.printVisualGridWithPlayer(player);  // Print grid after move
 
         moved = game.play(Movement.UP, player);
         System.out.println("Move UP: " + moved);
-        grid.printGridWithPlayer(player);
+        grid.printVisualGridWithPlayer(player);  // Print grid after move
 
         moved = game.play(Movement.LEFT, player);
         System.out.println("Move LEFT: " + moved);
-        grid.printGridWithPlayer(player);
+        grid.printVisualGridWithPlayer(player);  // Print grid after move
 
         // Print final grid with player
         System.out.println("Final Grid:");
-        grid.printGridWithPlayer(player);
+        grid.printVisualGridWithPlayer(player);  // Print final grid
     }
 }
