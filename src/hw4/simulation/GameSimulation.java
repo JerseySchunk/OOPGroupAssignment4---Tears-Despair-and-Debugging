@@ -4,7 +4,8 @@ import hw4.game.Game;
 import hw4.maze.Grid;
 import hw4.player.Movement;
 import hw4.player.Player;
-
+import java.util.ArrayList;
+@SuppressWarnings("unused")
 public class GameSimulation {
     public static void main(String[] args) {
         // Initialize 
