@@ -1,21 +1,13 @@
 package hw4.maze;
 
-import hw4.player.Player;
 import java.util.ArrayList;
-/**
- * Represents the entire maze structure used in TDD.
- * A grid is made up of multiple {@link Row} objects, and each row
- * contains several {@link Cell} objects. Together, they form a 2D maze that
- * the player can move through.
- *  
- * Provides methods to access and update the grid's layout.
- * It also includes readable string formats of the grid.
- *
- * @author Jersey Schunk
- */
+
+import hw4.player.Player;
+
 public class Grid {
     private ArrayList<Row> rows;
 
+    // Constructor expecting ArrayList<Row>
     public Grid(ArrayList<Row> rows) {
         this.rows = rows;
     }
@@ -37,22 +29,15 @@ public class Grid {
         return sb.toString();
     }
 
-    /**
-     * Prints visual and compact representation of the grid
-     *  player's position as [P].
-     * Cell printed  as a visual grid.
-     *
-     * @param player the player whose position to highlight
-     */
     public void printVisualGridWithPlayer(Player player) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < rows.size(); i++) {
             Row row = rows.get(i);
             for (int j = 0; j < row.getCells().size(); j++) {
-                if (player.getRow() == row && player.getCol() == j) { 
+                if (player.getCurrentRow() == i && player.getCurrentCol() == j) {
                     sb.append("[P]");  // Display player position
                 } else {
-                    sb.append(row.getCells().get(j).toVisualString());  // Print the visual representation of the cell
+                    sb.append(row.getCells().get(j).toVisualString());
                 }
             }
             sb.append("\n");
