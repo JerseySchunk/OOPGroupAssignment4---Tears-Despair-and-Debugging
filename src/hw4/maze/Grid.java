@@ -51,7 +51,7 @@ public class Grid {
             Row row = rows.get(i);
             sb.append("Row ").append(i).append(" | ");
             for (int j = 0; j < row.getCells().size(); j++) {
-            	if (player.getRow() == row && player.getCol() == j) {
+                if (player.getRow() == row && player.getCol() == j) {  // Corrected this line
                     sb.append("[P]");
                 } else {
                     sb.append("[ ]");
