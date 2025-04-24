@@ -10,35 +10,41 @@ public class GameSimulation {
         // Initialize 
         Game game = new Game(5);  // Creates a 5x5 grid
         Grid grid = game.createRandomGrid(5);
-
         
         game.setGrid(grid);
-//make player
-        Player player = new Player(
-        	    grid.getRows().get(4),                      // row
-        	    grid.getRows().get(4).getCells().get(4),    // cell
-        	    grid                                       // grid
-        	);
-        // player moves
-        System.out.println("Initial Grid:");
-        System.out.println(game);
 
+        // Create player at bottom-right cell
+        Player player = new Player(
+            grid.getRows().get(4),                      // row
+            grid.getRows().get(4).getCells().get(4),    // cell
+            grid                                        // grid
+        );
+
+        // Print initial grid with player
+        System.out.println("Initial Grid:");
+        grid.printGridWithPlayer(player);
+
+        // Simulate moves
         boolean moved;
 
         moved = game.play(Movement.UP, player);
         System.out.println("Move UP: " + moved);
+        grid.printGridWithPlayer(player);
 
         moved = game.play(Movement.LEFT, player);
         System.out.println("Move LEFT: " + moved);
+        grid.printGridWithPlayer(player);
 
         moved = game.play(Movement.UP, player);
         System.out.println("Move UP: " + moved);
+        grid.printGridWithPlayer(player);
 
         moved = game.play(Movement.LEFT, player);
         System.out.println("Move LEFT: " + moved);
+        grid.printGridWithPlayer(player);
 
-        // Show final grid 
+        // Print final grid with player
         System.out.println("Final Grid:");
-        System.out.println(game);
+        grid.printGridWithPlayer(player);
     }
 }

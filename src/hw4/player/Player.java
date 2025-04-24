@@ -138,4 +138,12 @@ public class Player {
 	public String toString() {
 		return "Player [currentCell=" + currentCell + ", currentRow=" + currentRow + "]";
 	}
+
+	public Row getRow() {
+	    return currentRow;
+	}
+
+	public int getCol() {
+	    return currentRow.getCells().indexOf(currentCell);
+	}
 }
